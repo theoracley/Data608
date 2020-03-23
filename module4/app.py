@@ -79,7 +79,7 @@ for i in range(0, len(trace_list)):
 
 
 fig['layout'].update(showlegend=False, height=400, width=1400,
-                     title='Proportion of Trees in Good, Fair and Poor Conditions', barmode='stack')
+                     title='Proportion of Trees in Good, Fair and Poor health', barmode='stack')
 
 
 # gather data for question 2
@@ -122,7 +122,7 @@ for i in range(len(boroughs)):
 
 
 fig_q2['layout'].update(showlegend=False, height=500, width=1400,
-                        title='Proportion of Trees in Good, Fair and Poor Conditions')
+                        title='Proportion of Trees in Good, Fair and Poor health')
 
 
 app = dash.Dash()
@@ -141,7 +141,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
             'color': colors['text']
         }
     ),
-    html.Div(children='Proportion of trees in Good, Fair and Poor conditions', style={
+    html.Div(children='Proportion of trees in Good, Fair and Poor health', style={
         'textAlign': 'center',
         'color': colors['text']
     }),
@@ -158,7 +158,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         }
     ),
 
-    html.Div(children='Correlation between stewardsand health of trees', style={
+    html.Div(children='Correlation: stewards vs health of trees', style={
         'textAlign': 'center',
         'color': colors['text']
     }),
