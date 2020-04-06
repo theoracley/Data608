@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        table {
+            border-collapse: collapse;
+            border: 2px black solid;
+            font: 12px sans-serif;
+        }
+
+        td {
+            border: 1px black solid;
+            padding: 5px;
+        }
+    </style>
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+</head>
+
+<body>
+    <h1 style="text-align: center;">Data 608 - Assignment 5</h1>
+    <h2 style="text-align: center;">Abdelmalek Hajjam</h2>
+    <hr>
+    <h3>Part2 - for Advanced students</h3>
+    <p>Reading and manipulating data using D3.</p>
+    <p>
+        You can filter the table below by typing in president's name.
+        <br>Partial text is acceptable. Not case sensitive.
+    </p>
+    <form>
+        <input id="president" type="text">
+        <input type="button" value="Filter" onclick="filter();">
+    </form>
+
+    <p></p>
+    <script type="text/javascript">
+        var table = d3.select('body').append('table')
+        var thead = table.append('thead')
+        var tbody = table.append('tbody')
+        var columns = ['Name', 'Height', 'Weight']
+
+        thead.append('tr')
+            .selectAll('th')
+            .data(columns)
+            .enter()
+            .append('th')
+            .text(function (d) {
+                return d
+            })
+
+        var tabulate = function (data, columns) {
+            tbody.selectAll('tr')
+                .remove()
+                .data(data)
+                .selectAll('td')
+                .data(function (row) {
+                    return columns.map(function (column) {
+                        return {
+                            column: column,
+                            value: row[column]
+                        };
+                    });
+                })
+                .text(function (d) {
+                    return d.value;
+                });
+
+            var rows = tbody.selectAll('tr')
+                .data(data)
+                .enter()
+                .append('tr')
+
+            var cells = rows.selectAll('td')
+                .data(function (row) {
+                    return columns.map(function (column) {
+                        return {
+                            column: column,
+                            value: row[column]
+                        }
+                    })
+                })
+                .enter()
+                .append('td')
+                .text(function (d) {
+                    return d.value
+                })
+
+            return table;
+        }
+
+        d3.csv('https://raw.githubusercontent.com/theoracley/Data608/master/module5/data/presidents.csv', function (
+            data) {
+            tabulate(data, columns)
+        })
+
+        function filter() {
+            pr = document.getElementById("president").value.toLowerCase();
+            d3.csv('https://raw.githubusercontent.com/theoracley/Data608/master/module5/data/presidents.csv', function (
+                data) {
+                if (pr == "") {
+                    var fdata = data
+                } else {
+                    var fdata = data.filter(function (d) {
+                        if (d.Name.toLowerCase().search(pr) > -1) {
+                            return d
+                        }
+                    })
+                }
+                tabulate(fdata, columns)
+            })
+        }
+    </script>
+    <br><br>
+    <br><br>
+    <h3>Please use the table below in case you forgot the names of the presidents, and also to check on the answers.
+    </h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Height</th>
+                <th>Weight</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Washington</td>
+                <td>74</td>
+                <td>175</td>
+            </tr>
+            <tr>
+                <td>J. Adams</td>
+                <td>67</td>
+                <td>165</td>
+            </tr>
+            <tr>
+                <td>Madison</td>
+                <td>64</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>Jackson</td>
+                <td>73</td>
+                <td>140</td>
+            </tr>
+            <tr>
+                <td>Taylor</td>
+                <td>68</td>
+                <td>170</td>
+            </tr>
+            <tr>
+                <td>Lincoln</td>
+                <td>76</td>
+                <td>180</td>
+            </tr>
+            <tr>
+                <td>Hayes</td>
+                <td>68</td>
+                <td>170</td>
+            </tr>
+            <tr>
+                <td>Cleveland</td>
+                <td>61</td>
+                <td>260</td>
+            </tr>
+            <tr>
+                <td>Taft</td>
+                <td>72</td>
+                <td>316</td>
+            </tr>
+            <tr>
+                <td>Wilson</td>
+                <td>61</td>
+                <td>170</td>
+            </tr>
+            <tr>
+                <td>Hoover</td>
+                <td>61</td>
+                <td>187</td>
+            </tr>
+            <tr>
+                <td>F.D. Roosevelt</td>
+                <td>74</td>
+                <td>188</td>
+            </tr>
+            <tr>
+                <td>Truman</td>
+                <td>69</td>
+                <td>167</td>
+            </tr>
+            <tr>
+                <td>Eisenhower</td>
+                <td>61</td>
+                <td>171</td>
+            </tr>
+            <tr>
+                <td>Kennedy</td>
+                <td>72</td>
+                <td>173</td>
+            </tr>
+            <tr>
+                <td>Johnson</td>
+                <td>75</td>
+                <td>200</td>
+            </tr>
+            <tr>
+                <td>Nixon</td>
+                <td>61</td>
+                <td>175</td>
+            </tr>
+            <tr>
+                <td>Ford</td>
+                <td>72</td>
+                <td>195</td>
+            </tr>
+            <tr>
+                <td>Carter</td>
+                <td>69</td>
+                <td>160</td>
+            </tr>
+            <tr>
+                <td>Reagan</td>
+                <td>73</td>
+                <td>185</td>
+            </tr>
+            <tr>
+                <td>Bush</td>
+                <td>74</td>
+                <td>191</td>
+            </tr>
+            <tr>
+                <td>Clinton</td>
+                <td>74</td>
+                <td>216</td>
+            </tr>
+            <tr>
+                <td>GW Bush</td>
+                <td>72</td>
+                <td>196</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+
+</html>
