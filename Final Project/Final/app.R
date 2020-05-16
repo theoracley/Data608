@@ -1,5 +1,5 @@
 ######## Abdelmalek Hajjam
-######## Data608 - Fall 2020
+######## Data608 - Spring 2020
 ######## Final project
 
 
@@ -42,7 +42,7 @@ body <- dashboardBody(
   tabItems(
     
     tabItem("tabIntroduction",
-            h1("Data 608 Final Project - Fall 2020", style="text-align:center; color:#9b59b6"),
+            h1("Data 608 Final Project - Spring 2020", style="text-align:center; color:#9b59b6"),
             br(),
             div(
             fluidRow(
